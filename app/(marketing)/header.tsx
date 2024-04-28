@@ -4,6 +4,7 @@ import { ClerkLoaded, ClerkLoading, SignedIn, SignedOut, SignInButton, UserButto
 import { Button } from "@/components/ui/button";
 
 export const Header = () => {
+    
     return (
         <header className="h-20 w-full border-b-2 border-slate-200 px-4">
             <div className="lg:max-w-screen-lg mx-auto flex items-center justify-between h-full">
@@ -21,7 +22,7 @@ export const Header = () => {
                         <UserButton afterSignOutUrl="/"/>
                     </SignedIn>
                     <SignedOut>
-                        <SignInButton mode="modal" fallbackRedirectUrl="/learn" signUpFallbackRedirectUrl="/learn">
+                        <SignInButton mode="modal" fallbackRedirectUrl="/learn" forceRedirectUrl="/learn">
                             <Button size="lg" variant="ghost">
                                 Login
                             </Button>
