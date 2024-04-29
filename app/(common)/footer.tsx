@@ -7,6 +7,10 @@ const Footer = () => {
     <footer className='hidden lg:block h-20 w-full border-t-2 border-slate-200 p-2'>
       <div className='lg:max-w-screen-lg mx-auto flex items-center justify-center h-full'>
         <Button size="lg" variant="ghost" className='w-full'>
+          <Image src="/leader.svg" alt="leader" height={32} width={40} className='mr-4 rounded-md'/>
+          社長
+        </Button>
+        <Button size="lg" variant="ghost" className='w-full'>
           <Image src="/businessman.svg" alt="entrepreneur" height={32} width={40} className='mr-4 rounded-md'/>
           起業
         </Button>
