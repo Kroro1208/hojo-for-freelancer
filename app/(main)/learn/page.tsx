@@ -15,7 +15,7 @@ const LearnPage = () => {
             />
         </StickyWrapper>
         <FeedWrapper>
-            <Header title="Header" />
+            <Header title="フリーランス" />
         </FeedWrapper>
     </div>
   )
