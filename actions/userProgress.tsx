@@ -35,6 +35,7 @@ export const upsertUserProgress = async (courseId: number) => {
             userImageSrc: user.imageUrl || "mascot.svg"
         });
 
+        // キャッシュの無効化
         revalidatePath("/course");
         revalidatePath("/learn");
         redirect('/learn');

@@ -1,8 +1,9 @@
 "use client"
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 import { course, userProgress } from "@/db/schema";
 import { Card } from "./card";
-import { useTransition } from "react";
+import { useTransition } from 'react';
 import { upsertUserProgress } from "@/actions/userProgress";
 
 type Props = {
@@ -20,7 +21,9 @@ export const List = ({ course, activeCourseId }:Props) => {
             return router.push('/learn');
         }
         startTransition(()=> {
-            upsertUserProgress(id);
+            upsertUserProgress(id).catch(()=> {
+                toast.error('エラーが発生しました');
+            });
         });
     }
 
