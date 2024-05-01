@@ -28,5 +28,5 @@ export const UnitBanner = ({
                 </Button>
             </Link>
         </div>
-    )
+    );
 }

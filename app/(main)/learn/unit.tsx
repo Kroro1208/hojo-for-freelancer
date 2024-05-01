@@ -1,5 +1,6 @@
 import { lessons, units } from "@/db/schema";
 import { UnitBanner } from "./unitBanner";
+import { LessonButton } from "./lessonButton";
 
 type Props = {
     id: number;
@@ -27,6 +28,23 @@ export const Unit = ({
     return (
         <div>
             <UnitBanner title={title} description={description}/>
+            <div className="flex items-center flex-col relative">
+                {lessons.map((lesson, index) => {
+                    const isCurrent = true || lesson.id === activeLesson?.id;
+                    const isLocked = !lesson.completed && !isCurrent;
+                    return (
+                        <LessonButton
+                            key={lesson.id}
+                            id={lesson.id}
+                            index={index}
+                            totalCount={lessons.length -1}
+                            current={isCurrent}
+                            locked={isLocked}
+                            percentage={activeLessonPercentage}
+                        />
+                    );
+                })}
+            </div>
         </div>
     )
 }

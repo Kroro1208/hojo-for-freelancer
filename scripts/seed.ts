@@ -70,6 +70,18 @@ const main = async () => {
                 title: '累進課税',
                 order: 3,
              },
+             {
+                id: 4,
+                unitId: 1,
+                title: '累進課税',
+                order: 4,
+             },
+             {
+                id: 5,
+                unitId: 1,
+                title: '累進課税',
+                order: 5,
+             },
         ]);
 
         await db.insert(schema.challenges).values([
