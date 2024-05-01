@@ -73,13 +73,13 @@ const main = async () => {
              {
                 id: 4,
                 unitId: 1,
-                title: '累進課税',
+                title: '青色申告',
                 order: 4,
              },
              {
                 id: 5,
                 unitId: 1,
-                title: '累進課税',
+                title: '経費',
                 order: 5,
              },
         ]);
