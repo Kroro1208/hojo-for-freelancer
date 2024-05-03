@@ -46,11 +46,12 @@ export const getUnits = cache(async() => {
             },
         },
     });
+
+    // 各lessonが完了しているかどうかのステータスを計算
     const normalizedData = data.map((unit) => {
         const lessonWithCompletedStatus = unit.lessons.map((lesson) => {
             if(lesson.challenges.length === 0) {
                 return {...lesson, completed: false
-
                 }
             }
             const allCompletedChallenges = lesson.challenges.every((challenge) => {
@@ -62,7 +63,7 @@ export const getUnits = cache(async() => {
         });
         return { ...unit, lessons: lessonWithCompletedStatus }
     });
-    return normalizedData;
+    return normalizedData; // lessonが完了しているかどうかのstatusが反映れたunitが返る
 });
 
 
