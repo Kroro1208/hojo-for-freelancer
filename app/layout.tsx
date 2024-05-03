@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Toaster } from "sonner"
 import { Inter } from "next/font/google";
 import { ClerkProvider } from '@clerk/nextjs'
+import { ExitModal } from "@/components/ui/exitModals";
 import "./globals.css";
 
 const font = Inter({ subsets: ["latin"] });
@@ -21,6 +22,7 @@ export default function RootLayout({
       <html lang="en">
         <body className={font.className}>
           <Toaster />
+          <ExitModal />
           {children}
         </body>
       </html>
