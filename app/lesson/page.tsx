@@ -1,5 +1,4 @@
 import { getLesson, getUserProgress } from "@/db/queries";
-import { userProgress } from '../../db/schema';
 import { redirect } from "next/navigation";
 import { Quiz } from "./quiz";
 
@@ -24,7 +23,7 @@ const LessonPage = async () =>  {
         initialLessonChallenges={lesson.challenges}
         initialHearts={userProgress.hearts}
         initialPercentage={initialPercentage}
-        userSubscription={null}
+        userSubscriptions={null}
     />
   )
 }
