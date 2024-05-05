@@ -23,7 +23,7 @@ export const Challenge = ({ options, onSelect, status, selectedOption, disabled,
         id={option.id}
         text={option.text}
         imageSrc={option.imageSrc}
-        shortcut={`${i + 1}`}
+        shortcut={`${i + 1}`} // キーボードの番号を押して選択する用
         selected={selectedOption === option.id}
         onClick={()=>onSelect(option.id)}
         status={status}
