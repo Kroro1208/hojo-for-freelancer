@@ -115,7 +115,7 @@ const main = async () => {
                 imageSrc: '/10.svg',
                 correct: true,
                 text: '10万円',
-                audioSrc: '/correct.mp3'
+                audioSrc: '/10.mp3'
             },
             {
                 id: 2,
@@ -123,7 +123,7 @@ const main = async () => {
                 imageSrc: '/5.svg',
                 correct: false,
                 text: '5万円',
-                audioSrc: '/incorrect.mp3'
+                audioSrc: '/5.mp3'
             },
             {
                 id: 3,
@@ -131,7 +131,7 @@ const main = async () => {
                 imageSrc: '/8.svg',
                 correct: false,
                 text: '8万円',
-                audioSrc: '/incorrect.mp3'
+                audioSrc: '/8.mp3'
             },
         ]);
 
