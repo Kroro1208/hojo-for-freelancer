@@ -36,6 +36,7 @@ export const upsertChallengeProgress = async (challengeId: number) => {
         )
     });
 
+    // 全てレッスンが完了している場合のpractice
     const isPractice = !!existingChallengeProgress;
     if(currentUserProgress.hearts === 0 && !isPractice) {
         return { error: "hearts" };

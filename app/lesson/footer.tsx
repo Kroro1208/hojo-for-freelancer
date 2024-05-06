@@ -53,7 +53,7 @@ const Footer = ({
                 size={isMobile ? "sm" : "lg"}
                 variant={status === "wrong" ? "danger" : "secondary"}
             >
-                {status === "none" && "チェック"}
+                {status === "none" && "Final Answer !"}
                 {status === "correct" && "次へ進む"}
                 {status === "wrong" && "もう一度"}
                 {status === "completed" && "続ける"}

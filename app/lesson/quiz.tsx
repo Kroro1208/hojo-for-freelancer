@@ -1,12 +1,13 @@
 "use client"
 import { challengeOptions, challenges } from "@/db/schema";
+import { upsertChallengeProgress } from "@/actions/challengeProgress";
+import { reduceHearts } from "@/actions/userProgress";
 import { useState, useTransition } from "react";
 import { toast } from "sonner";
 import { Header } from "./header";
 import { QuestionBubble } from "./questionBubble";
 import { Challenge } from "./challenge";
 import Footer from "./footer";
-import { upsertChallengeProgress } from "@/actions/challengeProgress";
 
 type Props = {
     initialLessonId: number;
@@ -70,59 +71,75 @@ export const Quiz = ({
       }
 
       if(correctOption.id === selectedOption) {
-        startTransition(() => {});
-        upsertChallengeProgress(challenge.id).then((response) => {
-          if(response?.error === "hearts") {
-            console.error("ハートが減りました");
-            return;
-          }
-          setStatus("correct");
-          setPercentage((prev)=> prev + 100 / challenges.length);
-          if(initialPercentage === 100) {
-            setHearts((prev) => Math.min(prev,+ 1, 5));
-          }
-        }).catch(()=> toast.error("エラーが発生しています。もう一度トライしてください"));
+        startTransition(()=> {
+          upsertChallengeProgress(challenge.id)
+          .then((response) => {
+            if(response?.error === "hearts") {
+              console.error("ハートが全てなくなりました");
+              return;
+            }
+            setStatus("correct");
+            setPercentage((prev)=> prev + 100 / challenges.length);
+
+            // レッスンを全てクリアした後の場合(practice)
+            if(initialPercentage === 100) {
+              setHearts((prev) => Math.min(prev + 1, 5));
+            }
+          }).catch(()=> toast.error("エラーが発生しています。もう一度トライしてください"));
+        });
       } else {
-        console.error("残念！");
-      }
-    };
+          startTransition(() => {
+            reduceHearts(challenge.id).then((response)=> {
+              if(response?.error === "hearts") {
+                console.error("ハートが全てなくなりました");
+                return;
+              }
+              setStatus("wrong");
 
-    const title = challenge.type === "ASSIST"  ? "次の項目について最も適切な解を選択してください" : challenge.question;
+              if(!response?.error){
+                setHearts((prev)=> Math.max(prev - 1, 0));
+              }
+            }).catch(()=> toast.error('エラーが発生しています。もう一度やり直してください'))
+          });
+        }
+      };
 
-  return (
-    <>
-      <Header
-        hearts={hearts}
-        percentage={percentage}
-        hasActiveSubscription={!!userSubscriptions?.isActive}
-      />
-      <div className="flex-1">
-        <div className="h-full flex items-center justify-center">
-            <div className="lg:min-h-[350px] lg:w-[600px] w-full px-6 lg:px-0 flex flex-col gap-y-12">
-                <h1 className="text-lg lg:text-3xl text-center lg:text-start font-bold text-neutral-700">
-                    {title}
-                </h1>
-                <div>
-                    {challenge.type === "ASSIST" && (
-                        <QuestionBubble  question={challenge.question}/>
-                    )}
-                    <Challenge
-                      options={options}
-                      onSelect={onSelect}
-                      status={status}
-                      selectedOption={selectedOption}
-                      disabled={false}
-                      type={challenge.type}
-                    />
-                </div>
-            </div>
+    const title = challenge.type === "ASSIST" ? "次の項目について最も適切な解を選択してください" : challenge.question;
+    
+    return (
+      <>
+        <Header
+          hearts={hearts}
+          percentage={percentage}
+          hasActiveSubscription={!!userSubscriptions?.isActive}
+        />
+        <div className="flex-1">
+          <div className="h-full flex items-center justify-center">
+              <div className="lg:min-h-[350px] lg:w-[600px] w-full px-6 lg:px-0 flex flex-col gap-y-12">
+                  <h1 className="text-lg lg:text-3xl text-center lg:text-start font-bold text-neutral-700">
+                      {title}
+                  </h1>
+                  <div>
+                      {challenge.type === "ASSIST" && (
+                          <QuestionBubble  question={challenge.question}/>
+                      )}
+                      <Challenge
+                        options={options}
+                        onSelect={onSelect}
+                        status={status}
+                        selectedOption={selectedOption}
+                        disabled={false}
+                        type={challenge.type}
+                      />
+                  </div>
+              </div>
+          </div>
         </div>
-      </div>
-      <Footer
-        disabled={!selectedOption}
-        status={status}
-        onCheck={onContinue}
-      />
-    </>
-  )
+        <Footer
+          disabled={pending || !selectedOption}
+          status={status}
+          onCheck={onContinue}
+        />
+      </>
+    )
 }
