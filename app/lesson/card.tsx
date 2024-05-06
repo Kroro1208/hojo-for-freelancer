@@ -14,7 +14,7 @@ type Props = {
     onClick: ()=> void;
     disabled?: boolean;
     status?: "correct" | "wrong" | "none";
-    type: typeof challenges.$inferSelect["type"] // ASSIS or SELECT
+    type: typeof challenges.$inferSelect["type"] // ASSIST or SELECT
 }
 export const Card = ({
     id,

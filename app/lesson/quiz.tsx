@@ -37,9 +37,40 @@ export const Quiz = ({
 
     const challenge = challenges[activeIndex];
     const options = challenge?.challengeOptions ?? [];
+
+    const onNext = () => {
+      setActiveIndex((current)=> current + 1);
+    };
+
     const onSelect = (id: number) => {
       if(status !== "none") return;
       setSelectedOption(id);
+    };
+
+    const onContinue = () => {
+      if(!selectedOption) return;
+
+      if(status === "wrong") {
+        setStatus("none");
+        setSelectedOption(undefined);
+        return;
+      }
+      if(status === "correct") {
+        onNext();
+        setSelectedOption(undefined);
+        return;
+      }
+      
+      const correctOption = options.find((option) => option.correct);
+      if(!correctOption) {
+        return;
+      }
+
+      if(correctOption.id === selectedOption) {
+        console.log("正解！");
+      } else {
+        console.error("残念！");
+      }
     };
 
     const title = challenge.type === "ASSIST"  ? "最も適切な解を選択してください" : challenge.question;
@@ -76,7 +107,7 @@ export const Quiz = ({
       <Footer
         disabled={!selectedOption}
         status={status}
-        onCheck={()=>{}}
+        onCheck={onContinue}
       />
     </>
   )
