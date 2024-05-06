@@ -1,10 +1,12 @@
 "use client"
 import { challengeOptions, challenges } from "@/db/schema";
-import { useState } from "react";
+import { useState, useTransition } from "react";
+import { toast } from "sonner";
 import { Header } from "./header";
 import { QuestionBubble } from "./questionBubble";
 import { Challenge } from "./challenge";
 import Footer from "./footer";
+import { upsertChallengeProgress } from "@/actions/challengeProgress";
 
 type Props = {
     initialLessonId: number;
@@ -24,6 +26,7 @@ export const Quiz = ({
     initialLessonChallenges,
     userSubscriptions
 }: Props) => {
+    const [ pending, startTransition] = useTransition();
     const [ hearts, setHearts ] = useState(initialHearts);
     const [ percentage, setPercentage ] = useState(initialPercentage);
     const [challenges] = useState(initialLessonChallenges);
@@ -67,13 +70,24 @@ export const Quiz = ({
       }
 
       if(correctOption.id === selectedOption) {
-        console.log("正解！");
+        startTransition(() => {});
+        upsertChallengeProgress(challenge.id).then((response) => {
+          if(response?.error === "hearts") {
+            console.error("ハートが減りました");
+            return;
+          }
+          setStatus("correct");
+          setPercentage((prev)=> prev + 100 / challenges.length);
+          if(initialPercentage === 100) {
+            setHearts((prev) => Math.min(prev,+ 1, 5));
+          }
+        }).catch(()=> toast.error("エラーが発生しています。もう一度トライしてください"));
       } else {
         console.error("残念！");
       }
     };
 
-    const title = challenge.type === "ASSIST"  ? "最も適切な解を選択してください" : challenge.question;
+    const title = challenge.type === "ASSIST"  ? "次の項目について最も適切な解を選択してください" : challenge.question;
 
   return (
     <>

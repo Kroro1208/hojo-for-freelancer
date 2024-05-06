@@ -102,15 +102,14 @@ const main = async () => {
             {
                 id: 3,
                 lessonId: 3, // 累進課税
-                type: 'SELECT',
+                type: 'ASSIST',
                 order: 3,
-                question: '累進課税について最も適切なものは？'
+                question: '累進課税'
             },
         ]);
 
         await db.insert(schema.challengeOptions).values([
             {
-                id: 1,
                 challengeId: 1, // 医療費は年間いくらを超えると控除にできる？
                 imageSrc: '/10.svg',
                 correct: true,
@@ -118,7 +117,6 @@ const main = async () => {
                 audioSrc: '/10.mp3'
             },
             {
-                id: 2,
                 challengeId: 1,
                 imageSrc: '/5.svg',
                 correct: false,
@@ -126,12 +124,53 @@ const main = async () => {
                 audioSrc: '/5.mp3'
             },
             {
-                id: 3,
                 challengeId: 1,
                 imageSrc: '/8.svg',
                 correct: false,
                 text: '8万円',
                 audioSrc: '/8.mp3'
+            },
+            {
+                challengeId: 2, // 所得税に関して最も適切なものはどれ？
+                imageSrc: '/10.svg',
+                correct: true,
+                text: '収入からいろいろ引いて残りの金額に税率をかけるのが所得税(課税所得×税率)',
+                audioSrc: '/syotoku1.mp3'
+            },
+            {
+                challengeId: 2,
+                imageSrc: '/5.svg',
+                correct: false,
+                text: '所得税は個人の全収入に一律の税率を適用して計算される',
+                audioSrc: '/syotoku2.mp3'
+            },
+            {
+                challengeId: 2,
+                imageSrc: '/8.svg',
+                correct: false,
+                text: '所得税は収入に対して同一の税率が適用され、その税率は国によって固定されている',
+                audioSrc: '/syotoku3.mp3'
+            },
+            {
+                challengeId: 3, // 累進課税について最も適切なものは？
+                imageSrc: '/10.svg',
+                correct: false,
+                text: '年収195~329万円の人は全員10%かかる',
+                audioSrc: '/ruishin1.mp3'
+            },
+            {
+                challengeId: 3,
+                imageSrc: '/5.svg',
+                correct: true,
+                text: '課税される所得金額の範囲を超えた分だけ税率が上がる',
+                audioSrc: '/ruishin2.mp3'
+            },
+            {
+                challengeId: 3,
+                imageSrc: '/8.svg',
+                correct: false,
+                text: '所得が増えるにつれて全体の税率が下がり、高収入者ほど「収入額に対しての」税負担が軽くなる',
+                audioSrc: '/ruishin3.mp3'
             },
         ]);
 
