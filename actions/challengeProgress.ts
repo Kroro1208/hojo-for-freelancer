@@ -25,7 +25,7 @@ export const upsertChallengeProgress = async (challengeId: number) => {
     });
 
     if(!challenge) {
-        throw new Error("途中の問題はありません")
+        throw new Error("途中のレッスンはありません")
     }
 
     const lessonId = challenge.lessonId;
@@ -36,7 +36,7 @@ export const upsertChallengeProgress = async (challengeId: number) => {
         )
     });
 
-    // 全てレッスンが完了している場合のpractice
+    // 完了しているレッスンを再度する場合のロジック
     const isPractice = !!existingChallengeProgress;
     if(currentUserProgress.hearts === 0 && !isPractice) {
         return { error: "hearts" };

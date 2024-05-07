@@ -43,7 +43,7 @@ export const Quiz = ({
     const options = challenge?.challengeOptions ?? [];
 
     const onNext = () => {
-      setActiveIndex((current)=> current + 1);
+      setActiveIndex((current) => current + 1);
     };
 
     const onSelect = (id: number) => {
@@ -59,6 +59,7 @@ export const Quiz = ({
         setSelectedOption(undefined);
         return;
       }
+
       if(status === "correct") {
         onNext();
         setSelectedOption(undefined);
@@ -79,9 +80,12 @@ export const Quiz = ({
               return;
             }
             setStatus("correct");
-            setPercentage((prev)=> prev + 100 / challenges.length);
+            // const updatePercentage = (activeIndex + 1) * 20;
+            // setPercentage(updatePercentage);
+            // setPercentage((prev) => prev + 20);
+            setPercentage((prev) => prev + 100 / challenges.length);
 
-            // レッスンを全てクリアした後の場合(practice)
+            // レッスンを全てクリアした後の場合の復習(practice)
             if(initialPercentage === 100) {
               setHearts((prev) => Math.min(prev + 1, 5));
             }
@@ -105,7 +109,7 @@ export const Quiz = ({
       };
 
     const title = challenge.type === "ASSIST" ? "次の項目について最も適切な解を選択してください" : challenge.question;
-    
+    console.log(challenge.type);
     return (
       <>
         <Header

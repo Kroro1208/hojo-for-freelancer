@@ -84,6 +84,7 @@ const main = async () => {
              },
         ]);
 
+        // 1レッスン内にある問題(全5問の予定)
         await db.insert(schema.challenges).values([
             {
                 id: 1,
@@ -94,20 +95,21 @@ const main = async () => {
             },
             {
                 id: 2,
-                lessonId: 2, // 所得税
+                lessonId: 1, // 所得税
                 type: 'SELECT',
                 order: 2,
                 question: '所得税に関して最も適切なものはどれ？'
             },
             {
                 id: 3,
-                lessonId: 3, // 累進課税
+                lessonId: 1, // 累進課税
                 type: 'SELECT',
                 order: 3,
                 question: '累進課税に関して最も適切なものはどれ'
             },
         ]);
-
+        
+        // 問題の選択肢
         await db.insert(schema.challengeOptions).values([
             {
                 challengeId: 1, // 医療費は年間いくらを超えると控除にできる？

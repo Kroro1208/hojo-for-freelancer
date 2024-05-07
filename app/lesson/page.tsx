@@ -4,9 +4,9 @@ import { Quiz } from "./quiz";
 
 const LessonPage = async () =>  {
     const lessonData = getLesson();
-    const userProgredssData = getUserProgress();
+    const userProgressData = getUserProgress();
     const [ lesson, userProgress ] = await Promise.all([
-        lessonData, userProgredssData
+        lessonData, userProgressData
     ]);
 
     if(!lesson || !userProgress) {
