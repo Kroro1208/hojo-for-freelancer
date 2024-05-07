@@ -5,7 +5,7 @@ import { reduceHearts } from "@/actions/userProgress";
 import { useState, useTransition } from "react";
 import { toast } from "sonner";
 import { Header } from "./header";
-import { QuestionBubble } from "./questionBubble";
+import { QuestionTitle } from "./questionTitle";
 import { Challenge } from "./challenge";
 import Footer from "./footer";
 
@@ -98,8 +98,7 @@ export const Quiz = ({
                 console.error("ハートが全てなくなりました");
                 return;
               }
-              setStatus("wrong");
-
+            setStatus("wrong");
               if(!response?.error){
                 setHearts((prev)=> Math.max(prev - 1, 0));
               }
@@ -109,7 +108,6 @@ export const Quiz = ({
       };
 
     const title = challenge.type === "ASSIST" ? "次の項目について最も適切な解を選択してください" : challenge.question;
-    console.log(challenge.type);
     return (
       <>
         <Header
@@ -125,7 +123,7 @@ export const Quiz = ({
                   </h1>
                   <div>
                       {challenge.type === "ASSIST" && (
-                          <QuestionBubble  question={challenge.question}/>
+                          <QuestionTitle  question={challenge.question}/>
                       )}
                       <Challenge
                         options={options}
