@@ -9,7 +9,7 @@ const db = drizzle(sql, {schema});
 
 const main = async () => {
     try {
-        console.log("seedeing database");
+        console.log("seeding database");
         await db.delete(schema.course);
         await db.delete(schema.userProgress)
         await db.delete(schema.units);
@@ -134,39 +134,42 @@ const main = async () => {
             },
             {
                 challengeId: 2, // 所得税に関して最も適切なものはどれ？
-                imageSrc: '',
+                imageSrc: '/quests.svg',
                 correct: true,
                 text: '収入からいろいろ引いて残りの金額に税率をかけるのが所得税(課税所得×税率)',
                 audioSrc: '/syotoku1.mp3'
             },
             {
                 challengeId: 2,
-                imageSrc: '',
+                imageSrc: '/quests.svg',
                 correct: false,
                 text: '所得税は個人の全収入に一律の税率を適用して計算される',
                 audioSrc: '/syotoku2.mp3'
             },
             {
                 challengeId: 2,
-                imageSrc: '',
+                imageSrc: '/quests.svg',
                 correct: false,
                 text: '所得税は収入に対して同一の税率が適用され、その税率は国によって固定されている',
                 audioSrc: '/syotoku3.mp3'
             },
             {
                 challengeId: 3, // 累進課税について最も適切なものは？
+                imageSrc: '/quests.svg',
                 correct: false,
                 text: '年収195~329万円の人は全員10%かかる',
                 audioSrc: '/ruishin1.mp3'
             },
             {
                 challengeId: 3,
+                imageSrc: '/quests.svg',
                 correct: true,
                 text: '課税される所得金額の範囲を超えた分だけ税率が上がる',
                 audioSrc: '/ruishin2.mp3'
             },
             {
                 challengeId: 3,
+                imageSrc: '/quests.svg',
                 correct: false,
                 text: '所得が増えるにつれて全体の税率が下がり、高収入者ほど「収入額に対しての」税負担が軽くなる',
                 audioSrc: '/ruishin3.mp3'

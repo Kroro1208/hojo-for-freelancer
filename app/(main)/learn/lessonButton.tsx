@@ -27,19 +27,19 @@ export const LessonButton = ({
     const buttonNum = 8;
     const buttonIndex = index % buttonNum; // 画面左から見た時のボタンの距離
 
-    let indentaitonLevel;
+    let indentatitonLevel;
 
     if(buttonIndex <= 2) {
-        indentaitonLevel = buttonIndex;
+        indentatitonLevel = buttonIndex;
     } else if (buttonIndex <= 4) {
-        indentaitonLevel = 4 - buttonIndex;
+        indentatitonLevel = 4 - buttonIndex;
     } else if (buttonIndex <= 6 ) {
-        indentaitonLevel = 4 - buttonIndex;
+        indentatitonLevel = 4 - buttonIndex;
     } else {
-        indentaitonLevel = buttonIndex - 8;
+        indentatitonLevel = buttonIndex - 8;
     }
 
-    const rightPosition = indentaitonLevel * 40;
+    const rightPosition = indentatitonLevel * 40;
 
     const isFirst = index === 0;
     const isLast = index === totalCount;
@@ -51,7 +51,7 @@ export const LessonButton = ({
             <Link href={href} aria-disabled={locked}
                 style={{ pointerEvents: locked ? "none" : "auto" }}>
                 <div className="relative" style={{
-                    right: `${rightPosition}px`, marginTop: isFirst && !isCompleted ? 60 : 24,
+                    right: `${rightPosition}px`, marginTop: isFirst && !isCompleted ? 60 : 24
                 }}>
                     { current ? (
                         <div className="h-[102px] w-[102px] relative">

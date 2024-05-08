@@ -25,7 +25,7 @@ export const Challenge = ({ options, onSelect, status, selectedOption, disabled,
         imageSrc={option.imageSrc}
         shortcut={`${i + 1}`} // キーボードの番号を押して選択する用
         selected={selectedOption === option.id}
-        onClick={()=>onSelect(option.id)}
+        onClick={() => onSelect(option.id)}
         status={status}
         disabled={disabled}
         audioSrc={option.audioSrc}

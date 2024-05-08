@@ -17,7 +17,7 @@ export const upsertChallengeProgress = async (challengeId: number) => {
     const currentUserProgress = await getUserProgress();
     
     if(!currentUserProgress) {
-        throw new Error("途中のレッスンはありません");
+        throw new Error("途中のはありません");
     }
 
     const challenge = await db.query.challenges.findFirst({
@@ -25,7 +25,7 @@ export const upsertChallengeProgress = async (challengeId: number) => {
     });
 
     if(!challenge) {
-        throw new Error("途中のレッスンはありません")
+        throw new Error("途中のチャレンジはありません")
     }
 
     const lessonId = challenge.lessonId;
