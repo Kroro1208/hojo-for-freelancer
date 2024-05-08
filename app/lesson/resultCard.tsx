@@ -17,7 +17,7 @@ const ResultCard = ({ value, variant }: Props) => {
             variant === "hearts" && "bg-rose-500",
             variant === "points" && "bg-orange-400"
         )}>
-            {variant === "hearts" ? "残りのハート" : "Total Point"}
+            {variant === "hearts" ? "残りのハート" : "Total Points"}
         </div>
         <div className={cn("rounded-2xl bg-white items-center flex justify-center p-6 font-bold text-lg",
             variant === "hearts" && "text-rose-500",
