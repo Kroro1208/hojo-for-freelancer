@@ -33,7 +33,7 @@ export const upsertUserProgress = async (courseId: number) => {
         await db.update(userProgress).set({
             activeCourseId: courseId,
             userName: user.firstName || "User",
-            userImageSrc: user.imageUrl || "mascot.svg"
+            userImageSrc: user.imageUrl || "/mascot.svg"
         });
 
         // キャッシュの無効化

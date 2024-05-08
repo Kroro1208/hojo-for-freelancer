@@ -8,6 +8,7 @@ import { Header } from "./header";
 import { QuestionTitle } from "./questionTitle";
 import { Challenge } from "./challenge";
 import Footer from "./footer";
+import { useAudio } from "react-use";
 
 type Props = {
     initialLessonId: number;
@@ -27,6 +28,8 @@ export const Quiz = ({
     initialLessonChallenges,
     userSubscriptions
 }: Props) => {
+    const [ correctAudio, _c, correctControls ] = useAudio({src: "/correct.mp3"});
+    const [ incorrectAudio, _i, incorrectControls ] = useAudio({src: "/incorrect.mp3"});
     const [ pending, startTransition] = useTransition();
     const [ hearts, setHearts ] = useState(initialHearts);
     const [ percentage, setPercentage ] = useState(initialPercentage);
@@ -44,6 +47,7 @@ export const Quiz = ({
 
     const onNext = () => {
       setActiveIndex((current) => current + 1);
+      window.location.reload(); 
     };
 
     const onSelect = (id: number) => {
@@ -79,10 +83,9 @@ export const Quiz = ({
               console.error("ハートが全てなくなりました");
               return;
             }
+
+            correctControls.play();
             setStatus("correct");
-            // const updatePercentage = (activeIndex + 1) * 20;
-            // setPercentage(updatePercentage);
-            // setPercentage((prev) => prev + 20);
             setPercentage((prev) => prev + 100 / challenges.length);
 
             // レッスンを全てクリアした後の場合の復習(practice)
@@ -98,7 +101,9 @@ export const Quiz = ({
                 console.error("ハートが全てなくなりました");
                 return;
               }
-            setStatus("wrong");
+              incorrectControls.play();
+              setStatus("wrong");
+              
               if(!response?.error){
                 setHearts((prev)=> Math.max(prev - 1, 0));
               }
@@ -110,6 +115,8 @@ export const Quiz = ({
     const title = challenge.type === "ASSIST" ? "次の項目について最も適切な解を選択してください" : challenge.question;
     return (
       <>
+        {incorrectAudio}
+        {correctAudio}
         <Header
           hearts={hearts}
           percentage={percentage}
