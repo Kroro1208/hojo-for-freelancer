@@ -8,6 +8,7 @@ import { challengeProgress, challenges, userProgress } from "@/db/schema";
 import { auth, currentUser } from "@clerk/nextjs/server";
 import { and, eq } from "drizzle-orm";
 import { units } from '../db/schema';
+const POINTS_TO_REFILL = 10;
 
 export const upsertUserProgress = async (courseId: number) => {
     const { userId } = await auth();
@@ -102,5 +103,27 @@ export const reduceHearts = async (challengeId: number) => {
     revalidatePath("/quests");
     revalidatePath("/leaderboard");
     revalidatePath(`/lesson/${lessonId}`);
-    return;
+};
+
+export const refillHearts =async () => {
+    const currentUserprogress = await getUserProgress();
+    if(!currentUserprogress) {
+        throw new Error('ユーザー情報が見つかりません');
+    }
+    if(currentUserprogress.hearts === 5) {
+        throw new Error('ハートはすでに満タンです');
+    }
+    if(currentUserprogress.points < POINTS_TO_REFILL) {
+        throw new Error('十分なポイントがありません');
+    }
+    await db.update(userProgress).set({
+        hearts: 5,
+        // 10ポイント使用してハートを満タンにする
+        points: currentUserprogress.points - POINTS_TO_REFILL,
+    }).where(eq(userProgress.userId, currentUserprogress.userId));
+
+    revalidatePath("/shop");
+    revalidatePath("/learn");
+    revalidatePath("/quests");
+    revalidatePath("/leaderboard");
 };
