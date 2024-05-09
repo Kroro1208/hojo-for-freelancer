@@ -54,11 +54,11 @@ export const Card = ({
         </div>
       )}
       <div className={cn(
-        "flex items-center justify-center",
+        "flex items-center justify-center gap-2",
         type === "ASSIST" && "flex-row-reverse"
         )}>
             <div className={cn(
-                "lg:w-[30px] lg:h-[30px] w-[20px] h-[20px] flex items-center justify-center rounded-lg text-neutral-700 lg:text-[15px] text-xs font-semibold",
+                "lg:w-[30px] lg:h-[30px] w-[20px] h-[20px] flex items-center justify-center border-2 rounded-full text-neutral-700 lg:text-[15px] text-xs font-semibold",
                 selected && "border-sky-300 text-sky-500",
                 selected && status === "correct" && "border-green-300 text-green-500",
                 selected && status === "wrong" && "border-rose-300 text-rose-500"

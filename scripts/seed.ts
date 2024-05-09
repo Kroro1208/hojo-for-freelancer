@@ -113,21 +113,21 @@ const main = async () => {
         await db.insert(schema.challengeOptions).values([
             {
                 challengeId: 1, // 医療費は年間いくらを超えると控除にできる？
-                imageSrc: '/10.svg',
+                imageSrc: '/quests.svg',
                 correct: true,
                 text: '10万円',
                 audioSrc: '/select.mp3'
             },
             {
                 challengeId: 1,
-                imageSrc: '/5.svg',
+                imageSrc: '/quests.svg',
                 correct: false,
                 text: '5万円',
                 audioSrc: '/select.mp3'
             },
             {
                 challengeId: 1,
-                imageSrc: '/8.svg',
+                imageSrc: '/quests.svg',
                 correct: false,
                 text: '8万円',
                 audioSrc: '/select.mp3'

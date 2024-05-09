@@ -38,7 +38,7 @@ export const HeartsModal = () => {
                         ハートが全てなくなりました！
                     </DialogTitle>
                     <DialogDescription className="text-center font-light text-sm">
-                        ハートを手にいれる
+                        ハートを補充しますか？
                     </DialogDescription>
                 </DialogHeader>
                 <DialogFooter className="mb-4">

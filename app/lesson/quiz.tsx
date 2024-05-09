@@ -13,6 +13,7 @@ import { useAudio, useWindowSize } from "react-use";
 import Image from "next/image";
 import ResultCard from "./resultCard";
 import { useRouter } from "next/navigation";
+import { useHeartsModal } from "@/store/useHeartsModal";
 
 type Props = {
     initialLessonId: number;
@@ -32,7 +33,8 @@ export const Quiz = ({
     initialLessonChallenges,
     userSubscriptions
 }: Props) => {
-  const { width, height} = useWindowSize();
+    const { open: openHeartsModal } = useHeartsModal();
+    const { width, height} = useWindowSize();
     const router = useRouter();
     const [finishAudio] = useAudio({src: "/finish2.mp3", autoPlay: true})
     const [ correctAudio, _c, correctControls ] = useAudio({src: "/correct.mp3"});
@@ -88,7 +90,7 @@ export const Quiz = ({
           upsertChallengeProgress(challenge.id)
           .then((response) => {
             if(response?.error === "hearts") {
-              console.error("ハートが全てなくなりました");
+              openHeartsModal();
               return;
             }
 
@@ -106,7 +108,7 @@ export const Quiz = ({
           startTransition(() => {
             reduceHearts(challenge.id).then((response)=> {
               if(response?.error === "hearts") {
-                console.error("ハートが全てなくなりました");
+                openHeartsModal();
                 return;
               }
               incorrectControls.play();
