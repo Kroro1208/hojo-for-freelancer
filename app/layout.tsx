@@ -5,6 +5,7 @@ import { ClerkProvider } from '@clerk/nextjs'
 import { ExitModal } from "@/components/modals/exitModals";
 import "./globals.css";
 import { HeartsModal } from "@/components/modals/heartsModals";
+import { PracticeModal } from "@/components/modals/practiceModals";
 
 const font = Inter({ subsets: ["latin"] });
 
@@ -25,6 +26,7 @@ export default function RootLayout({
           <Toaster />
           <ExitModal />
           <HeartsModal />
+          <PracticeModal />
           {children}
         </body>
       </html>

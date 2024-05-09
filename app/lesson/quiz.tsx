@@ -9,11 +9,12 @@ import { Header } from "./header";
 import { QuestionTitle } from "./questionTitle";
 import { Challenge } from "./challenge";
 import Footer from "./footer";
-import { useAudio, useWindowSize } from "react-use";
+import { useAudio, useMount, useWindowSize } from "react-use";
 import Image from "next/image";
 import ResultCard from "./resultCard";
 import { useRouter } from "next/navigation";
 import { useHeartsModal } from "@/store/useHeartsModal";
+import { usePracticeModal } from "@/store/usePracticeModal";
 
 type Props = {
     initialLessonId: number;
@@ -34,6 +35,13 @@ export const Quiz = ({
     userSubscriptions
 }: Props) => {
     const { open: openHeartsModal } = useHeartsModal();
+    const { open: openPracticeModal } = usePracticeModal();
+    useMount(() => {
+      if(initialPercentage === 100) {
+        openPracticeModal();
+      }
+    })
+
     const { width, height} = useWindowSize();
     const router = useRouter();
     const [finishAudio] = useAudio({src: "/finish2.mp3", autoPlay: true})
