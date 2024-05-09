@@ -1,11 +1,11 @@
 "use client"
 
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "./dialog";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "../ui/dialog";
 import { useExitModal } from "@/store/useModal";
 import Image from "next/image";
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react";
-import { Button } from "./button";
+import { Button } from "../ui/button";
 
 export const ExitModal = () => {
     const router = useRouter();
@@ -33,6 +33,9 @@ export const ExitModal = () => {
                     <DialogTitle className="text-center font-bold text-2xl">
                         まだレッスンが終わってません！
                     </DialogTitle>
+                    <DialogDescription className="text-center font-light text-sm">
+                        本当にレッスンを終了しますか？
+                    </DialogDescription>
                 </DialogHeader>
                 <DialogFooter className="mb-4">
                     <div className="flex flex-col gap-y-4 w-full">

@@ -2,8 +2,9 @@ import type { Metadata } from "next";
 import { Toaster } from "sonner"
 import { Inter } from "next/font/google";
 import { ClerkProvider } from '@clerk/nextjs'
-import { ExitModal } from "@/components/ui/exitModals";
+import { ExitModal } from "@/components/modals/exitModals";
 import "./globals.css";
+import { HeartsModal } from "@/components/modals/heartsModals";
 
 const font = Inter({ subsets: ["latin"] });
 
@@ -23,6 +24,7 @@ export default function RootLayout({
         <body className={font.className}>
           <Toaster />
           <ExitModal />
+          <HeartsModal />
           {children}
         </body>
       </html>
