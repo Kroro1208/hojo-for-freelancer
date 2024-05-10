@@ -5,7 +5,6 @@ import { getUserProgress, getUserSubscription } from "@/db/queries"
 import { FeedWrapper } from "@/components/feedWrapper";
 import Image from "next/image";
 import Items from "./items";
-import { userSubscription } from '../../../db/schema';
 
 const ShopPage =async () => {
     const userProgressData = getUserProgress();

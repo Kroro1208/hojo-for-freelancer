@@ -5,6 +5,7 @@ import { refillHearts } from "@/actions/userProgress";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { useTransition } from "react";
+import { createStripeUrl } from "@/actions/userSubscription";
 
 const POINTS_TO_REFILL = 10;
 
@@ -31,7 +32,11 @@ const Items = ({
 
     const onUpgrade = () => {
         startTransition(() => {
-            
+            createStripeUrl().then((response) => {
+                if(response.data){
+                    window.location.href = response.data;
+                }
+            }).catch(() => toast.error('エラーが発生しました'));
         });
     }
 
@@ -70,7 +75,7 @@ const Items = ({
         </div>
         <div className="flex items-center w-full p-4 pt-8 gap-x-4 border-t-2">
             <Image
-            src="/heartmover.gif"
+            src="/love-heart.gif"
             alt="HeartMove"
             height={30}
             width={30}
