@@ -55,6 +55,7 @@ const Items = ({
                 </p>
             </div>
             <Button
+            variant="secondary"
             onClick={onRefillHearts}
             disabled={pending || hearts === 5 || points < POINTS_TO_REFILL}
             >
@@ -86,10 +87,11 @@ const Items = ({
                 </p>
             </div>
             <Button
+            variant="primary"
             onClick={onUpgrade}
-            disabled={pending || hasActiveSubscription}
+            disabled={pending}
             >
-                {hasActiveSubscription ? "active" : "update"}
+                {hasActiveSubscription ? "設定" : "UPGRADE"}
             </Button>
         </div>
     </ul>
