@@ -9,6 +9,7 @@ import {
   
   export default clerkMiddleware((auth, req) => {
     if (isProtectedRoute(req)) auth().protect();
+    publicRoutes: ["/", "/api/webhooks/stripe"]
   });
 
 export const config = {
