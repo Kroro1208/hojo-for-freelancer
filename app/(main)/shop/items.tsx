@@ -28,7 +28,14 @@ const Items = ({
             refillHearts().catch(() => toast.error('エラーが発生しました'))
         });
     }
-  return (
+
+    const onUpgrade = () => {
+        startTransition(() => {
+            
+        });
+    }
+
+    return (
     <ul className="w-full">
         <div className="flex items-center w-full p-4 gap-x-4 border-t-2">
             <Image
@@ -61,8 +68,27 @@ const Items = ({
                 )}
             </Button>
         </div>
+        <div className="flex items-center w-full p-4 pt-8 gap-x-4 border-t-2">
+            <Image
+            src="/heartmover.gif"
+            alt="HeartMove"
+            height={30}
+            width={30}
+            />
+            <div className="flex-1">
+                <p className="text-neutral-700 text-base lg:text-lg font-bold">
+                    ハートを永久補充する
+                </p>
+            </div>
+            <Button
+            onClick={onUpgrade}
+            disabled={pending || hasActiveSubscription}
+            >
+                {hasActiveSubscription ? "active" : "update"}
+            </Button>
+        </div>
     </ul>
-  )
+    )
 }
 
 export default Items
