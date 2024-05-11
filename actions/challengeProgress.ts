@@ -2,7 +2,7 @@
 
 import db from "@/db/drizzle";
 import { revalidatePath } from "next/cache";
-import { getUserProgress } from "@/db/queries";
+import { getUserProgress, getUserSubscription } from "@/db/queries";
 import { challengeProgress, challenges, userProgress } from "@/db/schema";
 import { auth } from "@clerk/nextjs/server";
 import { and, eq } from "drizzle-orm";
@@ -15,6 +15,7 @@ export const upsertChallengeProgress = async (challengeId: number) => {
     }
 
     const currentUserProgress = await getUserProgress();
+    const userSubscription = await getUserSubscription();
     
     if(!currentUserProgress) {
         throw new Error("途中のはありません");
@@ -38,8 +39,8 @@ export const upsertChallengeProgress = async (challengeId: number) => {
 
     // 完了しているレッスンを再度する場合のロジック
     const isPractice = !!existingChallengeProgress;
-    if(currentUserProgress.hearts === 0 && !isPractice) {
-        return { error: "hearts" };
+    if(currentUserProgress.hearts === 0 && !isPractice && !userSubscription?.isActive) {
+        return { error: "ハートを補充する必要があります" };
     }
 
     if(isPractice) {

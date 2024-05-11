@@ -3,11 +3,11 @@
 import db from "@/db/drizzle";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
-import { getCourseById, getUserProgress } from "@/db/queries";
+import { getCourseById, getUserProgress, getUserSubscription } from "@/db/queries";
 import { challengeProgress, challenges, userProgress } from "@/db/schema";
 import { auth, currentUser } from "@clerk/nextjs/server";
 import { and, eq } from "drizzle-orm";
-import { units } from '../db/schema';
+import { units, userSubscription } from '../db/schema';
 const POINTS_TO_REFILL = 10;
 
 export const upsertUserProgress = async (courseId: number) => {
@@ -25,9 +25,9 @@ export const upsertUserProgress = async (courseId: number) => {
     }
 
     // 途中のレッスンの取得
-    // if(!course.units.lenght || !course.units[0].lessons.lenght) {
-    //     throw new Error('コースが見つかりません');
-    // }
+    if(!course.units.length || !course.units[0].lessons.length) {
+        throw new Error('取り組み中のレッスンはありません');
+    }
 
     const existingUserProgress = await getUserProgress();
     if(existingUserProgress) {
@@ -63,6 +63,8 @@ export const reduceHearts = async (challengeId: number) => {
     }
 
     const currentUserPtogress = await getUserProgress();
+    const userSubscription = await getUserSubscription();
+
     const challenge = await db.query.challenges.findFirst({
         where: eq(challenges.id, challengeId),
 
@@ -92,6 +94,10 @@ export const reduceHearts = async (challengeId: number) => {
 
     if(currentUserPtogress.hearts === 0) {
         return { error: "hearts"};
+    }
+
+    if(!userSubscription?.isActive) {
+        return { error: "subscription"};
     }
 
     await db.update(userProgress).set({
