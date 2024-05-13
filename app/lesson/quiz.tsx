@@ -42,7 +42,7 @@ export const Quiz = ({
       if(initialPercentage === 100) {
         openPracticeModal();
       }
-    })
+    });
 
     const { width, height} = useWindowSize();
     const router = useRouter();
@@ -65,7 +65,6 @@ export const Quiz = ({
     const [ status, setStatus ] = useState<"correct" | "wrong" | "none">("none");
 
     const challenge = challenges[activeIndex];
-    console.log(challenge); // ここではchallenge: true
     const options = challenge?.challengeOptions ?? [];
 
     const onNext = () => {
@@ -86,7 +85,6 @@ export const Quiz = ({
         setSelectedOption(undefined);
         return;
       }
-
       if(status === "correct") {
         onNext();
         setSelectedOption(undefined);
@@ -106,7 +104,6 @@ export const Quiz = ({
               openHeartsModal();
               return;
             }
-
             correctControls.play();
             setStatus("correct");
             setPercentage((prev) => prev + 100 / challenges.length);
@@ -137,7 +134,6 @@ export const Quiz = ({
 
       // 全てのchallengeが完了した場合
       if(!challenge){
-        console.log(challenge); // ここではcompleted: false
         return (
           <>
             {finishAudio}
