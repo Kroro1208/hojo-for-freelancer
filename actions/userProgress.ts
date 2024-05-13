@@ -7,7 +7,7 @@ import { getCourseById, getUserProgress, getUserSubscription } from "@/db/querie
 import { challengeProgress, challenges, userProgress } from "@/db/schema";
 import { auth, currentUser } from "@clerk/nextjs/server";
 import { and, eq } from "drizzle-orm";
-import { units, userSubscription } from '../db/schema';
+
 const POINTS_TO_REFILL = 10;
 
 export const upsertUserProgress = async (courseId: number) => {

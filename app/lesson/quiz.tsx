@@ -1,4 +1,5 @@
 "use client"
+import { useRouter } from "next/navigation";
 import { challengeOptions, challenges, userSubscription } from "@/db/schema";
 import { upsertChallengeProgress } from "@/actions/challengeProgress";
 import { reduceHearts } from "@/actions/userProgress";
@@ -12,7 +13,6 @@ import Footer from "./footer";
 import { useAudio, useMount, useWindowSize } from "react-use";
 import Image from "next/image";
 import ResultCard from "./resultCard";
-import { useRouter } from "next/navigation";
 import { useHeartsModal } from "@/store/useHeartsModal";
 import { usePracticeModal } from "@/store/usePracticeModal";
 
@@ -65,6 +65,7 @@ export const Quiz = ({
     const [ status, setStatus ] = useState<"correct" | "wrong" | "none">("none");
 
     const challenge = challenges[activeIndex];
+    console.log(challenge); // ここではchallenge: true
     const options = challenge?.challengeOptions ?? [];
 
     const onNext = () => {
@@ -134,16 +135,18 @@ export const Quiz = ({
         }
       };
 
+      // 全てのchallengeが完了した場合
       if(!challenge){
+        console.log(challenge); // ここではcompleted: false
         return (
           <>
             {finishAudio}
             <Confetti width={width} height={height} recycle={false} numberOfPieces={500} tweenDuration={10000}/>
-            <div className="flex fex-col gap-y-4 lg:gap-y-8 max-w-lg mx-auto text-center items-center justify-center h-full">
+            <div className="flex flex-col gap-y-4 lg:gap-y-8 max-w-lg mx-auto text-center items-center justify-center h-full">
               <Image src="/star.gif" alt="finish" className="hidden lg:block" height={100} width={100} />
               <Image src="/star.gif" alt="finish" className="block lg:hidden" height={50} width={50} />
               <h1 className="text-xl lg:text-3xl font-bold text-neutral-700">
-                よくできました！このレッスンは終了です！
+                よくできました！<br/>このレッスンは終了です！
               </h1>
               <div className="flex items-center gap-x-4 w-full">
                 <ResultCard variant="points" value={challenges.length * 10}/>
@@ -154,7 +157,7 @@ export const Quiz = ({
           </>
         );
       }
-
+      // challengeの途中の場合
     const title = challenge.type === "ASSIST" ? "次の項目について最も適切な解を選択してください" : challenge.question;
     return (
       <>
