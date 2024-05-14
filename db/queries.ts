@@ -2,7 +2,7 @@ import { cache } from "react";
 import { eq } from "drizzle-orm";
 import db from "./drizzle";
 import { auth } from "@clerk/nextjs/server";
-import { challengeProgress, course, lessons, units, userProgress, userSubscription } from './schema';
+import { challengeProgress, course, lessons, units, userProgress, userSubscription, challenges } from './schema';
 
 export const getUserProgress = cache(async() => {
     const { userId } = await auth();
@@ -104,6 +104,7 @@ export const getCourseProgress = cache(async () => {
                 with: {
                     unit: true,
                     challenges: {
+                        orderBy: (challenges, { asc }) => [asc(challenges.order)],
                         with: {
                             challengeProgress: {
                                 where: eq(challengeProgress.userId, userId)

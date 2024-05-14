@@ -132,6 +132,7 @@ export const Quiz = ({
         }
       };
 
+
       // 全てのchallengeが完了した場合
       if(!challenge){
         return (
@@ -153,6 +154,7 @@ export const Quiz = ({
           </>
         );
       }
+
       // challengeの途中の場合
     const title = challenge.type === "ASSIST" ? "次の項目について最も適切な解を選択してください" : challenge.question;
     return (
