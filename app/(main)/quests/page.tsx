@@ -5,6 +5,7 @@ import { getUserProgress, getUserSubscription } from "@/db/queries"
 import { FeedWrapper } from "@/components/feedWrapper";
 import Image from "next/image";
 import { Progress } from "@/components/ui/progress";
+import Promo from "@/components/promo";
 
 type Props = {
   title: string,
@@ -55,6 +56,9 @@ const QuestsPage = async () => {
         points={userProgress.points}
         hasActiveSubscriotion={isPro}
         />
+        {!isPro && (
+          <Promo />
+        )}
       </StickyWrapper>
       <FeedWrapper>
         <div className="w-full flex flex-col items-center">

@@ -7,6 +7,7 @@ import Image from "next/image";
 import { getTopTenUsers } from '../../../db/queries';
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Separator } from "@/components/ui/separator";
+import Promo from "@/components/promo";
 
 const LeaderBoardPage = async () => {
     const userProgressData = getUserProgress();
@@ -30,6 +31,9 @@ const LeaderBoardPage = async () => {
         points={userProgress.points}
         hasActiveSubscriotion={isPro}
         />
+        {!isPro && (
+          <Promo />
+        )}
       </StickyWrapper>
       <FeedWrapper>
         <div className="w-full flex flex-col items-center">
