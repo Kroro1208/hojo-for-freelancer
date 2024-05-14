@@ -40,7 +40,7 @@ const LeaderBoardPage = async () => {
             width={90}
             />
             <h1 className="text-center font-bold text-neutral-800 text-2xl my-6">
-            あなたのスコア
+            Your Score & Rank
             </h1>
             <p className="text-muted-foreground text-center text-lg mb-6">
                 コミュニティ内のあなたの順位
@@ -51,14 +51,14 @@ const LeaderBoardPage = async () => {
                 <div key={userProgress.userId}
                 className="flex items-center w-full p-2 px-4 rounded-xl hover:bg-gray-200/50"
                 >
-                  <p className="font-bold text-lime-700 mr-4">{index + 1}</p>
+                  <p className="font-bold mr-4">{index + 1}</p>
                   <Avatar className="bg-green-500 h-12 w-12 ml-3 mr-6">
                     <AvatarImage
                     src={userProgress.userImageSrc}
                     className="object-cover"
                     />
                   </Avatar>
-                  <p className="font-bold text-neutral-800 flex-1">
+                  <p className="font-bold text-neutral-500 flex-1">
                     {userProgress.userName}
                   </p>
                   <p className="text-muted-foreground">
