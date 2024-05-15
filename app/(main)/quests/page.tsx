@@ -6,34 +6,7 @@ import { FeedWrapper } from "@/components/feedWrapper";
 import Image from "next/image";
 import { Progress } from "@/components/ui/progress";
 import Promo from "@/components/promo";
-
-type Props = {
-  title: string,
-  value: number
-}
-
-const quests: Props[] = [
-  {
-    title: "20XP",
-    value: 20,
-  },
-  {
-    title: "50XP",
-    value: 50,
-  },
-  {
-    title: "100XP",
-    value: 100,
-  },
-  {
-    title: "500XP",
-    value: 500,
-  },
-  {
-    title: "1000XP",
-    value: 1000,
-  },
-];
+import { quests } from "@/constants";
 
 const QuestsPage = async () => {
     const userProgressData = getUserProgress();

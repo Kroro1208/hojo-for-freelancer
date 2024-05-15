@@ -8,6 +8,7 @@ import { getTopTenUsers } from '../../../db/queries';
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Separator } from "@/components/ui/separator";
 import Promo from "@/components/promo";
+import Quests from "@/components/quests";
 
 const LeaderBoardPage = async () => {
     const userProgressData = getUserProgress();
@@ -34,6 +35,8 @@ const LeaderBoardPage = async () => {
         {!isPro && (
           <Promo />
         )}
+        <Quests points={userProgress.points}/>
+
       </StickyWrapper>
       <FeedWrapper>
         <div className="w-full flex flex-col items-center">
