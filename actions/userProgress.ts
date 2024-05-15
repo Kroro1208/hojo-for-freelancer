@@ -61,7 +61,7 @@ export const reduceHearts = async (challengeId: number) => {
         throw new Error('認証されていないユーザーです');
     }
 
-    const currentUserPtogress = await getUserProgress();
+    const currentUserProgress = await getUserProgress();
     const userSubscription = await getUserSubscription();
 
     const challenge = await db.query.challenges.findFirst({
@@ -87,11 +87,11 @@ export const reduceHearts = async (challengeId: number) => {
         return { error: "復習中です"};
     }
 
-    if(!currentUserPtogress) {
+    if(!currentUserProgress) {
         throw new Error('ユーザー成績が見つかりません');
     }
 
-    if(currentUserPtogress.hearts === 0) {
+    if(currentUserProgress.hearts === 0) {
         return { error: "hearts"};
     }
 
@@ -100,7 +100,7 @@ export const reduceHearts = async (challengeId: number) => {
     }
 
     await db.update(userProgress).set({
-        hearts: Math.max(currentUserPtogress.hearts -1, 0)
+        hearts: Math.max(currentUserProgress.hearts -1, 0)
     }).where(eq(userProgress.userId, userId));
 
     revalidatePath("/shop");
